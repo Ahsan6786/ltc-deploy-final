@@ -1,0 +1,195 @@
+================================================================================
+LIFE TRANSFORMATION CENTRE (LTC) - PROJECT OVERVIEW & DEPLOYMENT GUIDE
+================================================================================
+
+This document outlines the features and functionality of the LTC project and
+provides a detailed, step-by-step guide to deploying the complete stack (Frontend,
+Backend, and Database) on a Hostinger VPS (Virtual Private Server).
+
+--------------------------------------------------------------------------------
+PART 1: PROJECT OVERVIEW & FUNCTIONALITY
+--------------------------------------------------------------------------------
+
+The LTC project is a modern web application designed for an educational institute.
+It features a premium, responsive design with a floating capsule navigation bar,
+immersive full-screen menus on mobile, and dedicated dashboards for different user roles.
+
+Core Stack:
+- Frontend: React.js (built with Vite), CSS3, Lucide-React icons.
+- Backend: Node.js with Express framework.
+- Database: MySQL.
+
+Key Functionalities:
+1. Landing Page:
+   - Immersive full-screen video background hero section.
+   - Dynamic slide-in full-screen navigation menu on mobile.
+   - Floating capsule-style navbar on desktop.
+   - Profile cards for Founder, VC, and CAO with subtle background patterns.
+   - Scroll-to-top button that appears only after scrolling past the hero section.
+
+2. Founder's Message Page:
+   - Full-width layout on desktop.
+   - Premium borders and styled blockquotes for academic messages.
+   - Floating back-to-top button.
+
+3. Authentication:
+   - Role-based login system (Admin, Faculty, Student).
+   - Secure token-based authentication.
+
+4. Dashboards (Role-Based):
+   - High-end glassmorphism sidebar (Dark Navy theme).
+   - Student Dashboard: View grades, attendance, and feedback.
+   - Faculty Dashboard: Mark attendance, enter grades, and manage students.
+   - Admin Dashboard: Manage users, generate reports, and oversee system settings.
+
+--------------------------------------------------------------------------------
+PART 2: DEPLOYMENT GUIDE FOR HOSTINGER VPS
+--------------------------------------------------------------------------------
+
+Hostinger VPS gives you a clean Linux environment (usually Ubuntu). You need to
+manually install the software to run your Node.js app and serve the frontend.
+
+Here is the step-by-step process:
+
+STEP 1: ACCESS YOUR VPS
+=======================
+Use SSH to log in to your VPS from your terminal:
+$ ssh root@YOUR_VPS_IP
+(Enter the password you set in Hostinger panel)
+
+STEP 2: UPDATE SYSTEM & INSTALL DEPENDENCIES
+===========================================
+Update the package list and install necessary tools:
+$ sudo apt update && sudo apt upgrade -y
+$ sudo apt install -y git curl wget nginx
+
+Install Node.js (Version 18 or 20 recommended):
+$ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+$ sudo apt install -y nodejs
+
+Verify installation:
+$ node -v
+$ npm -v
+
+STEP 3: INSTALL AND CONFIGURE MYSQL
+===================================
+Install MySQL Server:
+$ sudo apt install -y mysql-server
+
+Secure the installation:
+$ sudo mysql_secure_installation
+(Follow prompts to set root password and remove test DBs)
+
+Log in to MySQL and create the database:
+$ sudo mysql -u root -p
+mysql> CREATE DATABASE ltc_production;
+mysql> EXIT;
+
+Import your database schema:
+$ mysql -u root -p ltc_production < /path/to/your/schema.sql
+(You need to upload your schema file to the server first using SCP or Git)
+
+STEP 4: CLONE REPOSITORY & INSTALL PACKAGES
+===========================================
+Navigate to web root:
+$ cd /var/www
+
+Clone your repository:
+$ git clone https://github.com/Ahsan6786/ltc-production.git
+$ cd ltc-production
+
+Install Backend Dependencies:
+$ cd backend
+$ npm install
+
+Install Frontend Dependencies:
+$ cd ../frontend
+$ npm install
+
+STEP 5: CONFIGURE ENVIRONMENT VARIABLES
+=======================================
+In the `backend` folder, create a `.env` file:
+$ cd ../backend
+$ nano .env
+
+Add your production database credentials:
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=YOUR_MYSQL_PASSWORD
+DB_NAME=ltc_production
+PORT=5000
+JWT_SECRET=YOUR_SECURE_RANDOM_STRING
+
+Press CTRL+O to save and CTRL+X to exit.
+
+STEP 6: BUILD FRONTEND
+======================
+Navigate to the frontend folder and build the production bundle:
+$ cd ../frontend
+$ npm run build
+
+This will create a `dist` folder containing static HTML/CSS/JS files.
+
+STEP 7: RUN BACKEND WITH PM2
+============================
+PM2 is a process manager that keeps your Node.js app running in the background.
+Install PM2 globally:
+$ sudo npm install -pm2 -g
+
+Start the backend server:
+$ cd ../backend
+$ pm2 start server.js --name "ltc-backend"
+
+Save PM2 list to restart on reboot:
+$ pm2 save
+$ pm2 startup
+
+STEP 8: CONFIGURE NGINX AS REVERSE PROXY
+========================================
+We will use Nginx to serve the static frontend files and proxy API requests to the Node.js backend.
+
+Create a new Nginx configuration file:
+$ sudo nano /etc/nginx/sites-available/ltc
+
+Paste the following configuration (Replace your domain or IP):
+------------------------------------------------------------
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com YOUR_VPS_IP;
+
+    # Serve Static Frontend Files
+    location / {
+        root /var/www/ltc-production/frontend/dist;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Proxy API Requests to Backend
+    location /api/ {
+        proxy_pass http://localhost:5000; # Assuming backend runs on 5000
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+------------------------------------------------------------
+
+Enable the configuration and restart Nginx:
+$ sudo ln -s /etc/nginx/sites-available/ltc /etc/nginx/sites-enabled/
+$ sudo nginx -t (To check for syntax errors)
+$ sudo systemctl restart nginx
+
+STEP 9: SETUP SSL (HTTPS) - VERY IMPORTANT
+=========================================
+Install Certbot for free Let's Encrypt SSL:
+$ sudo apt install certbot python3-certbot-nginx -y
+
+Generate SSL certificate:
+$ sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+(Follow prompts to redirect all traffic to HTTPS)
+
+================================================================================
+CONGRATULATIONS! Your LTC platform is now live on your Hostinger VPS!
+================================================================================
