@@ -87,7 +87,7 @@ export default function StudentDashboard() {
     e.preventDefault()
     if (!feedbackText.trim()) return alert('Please enter feedback.')
     try {
-      const res = await fetch('http://localhost:5001/api/feedback', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ 
@@ -188,7 +188,7 @@ export default function StudentDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/student/dashboard', { headers: { 'Authorization': `Bearer ${token}` } })
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/student/dashboard`, { headers: { 'Authorization': `Bearer ${token}` } })
       if (res.status === 401) {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
@@ -198,15 +198,15 @@ export default function StudentDashboard() {
       const data = await res.json()
       if (res.ok) setMyData(data.data || {})
 
-      const schedRes = await fetch('http://localhost:5001/api/student/schedules', { headers: { 'Authorization': `Bearer ${token}` } })
+      const schedRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/student/schedules`, { headers: { 'Authorization': `Bearer ${token}` } })
       const schedData = await schedRes.json()
       if (schedRes.ok) setSchedules(schedData.schedules || [])
 
-      const attRes = await fetch('http://localhost:5001/api/student/attendance', { headers: { 'Authorization': `Bearer ${token}` } })
+      const attRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/student/attendance`, { headers: { 'Authorization': `Bearer ${token}` } })
       const attData = await attRes.json()
       if (attRes.ok) setAttendance(attData.attendance || [])
 
-      const evalRes = await fetch('http://localhost:5001/api/student/evaluations', { headers: { 'Authorization': `Bearer ${token}` } })
+      const evalRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/student/evaluations`, { headers: { 'Authorization': `Bearer ${token}` } })
       const evalData = await evalRes.json()
       if (evalRes.ok) setEvaluations(evalData.evaluations || [])
 
@@ -287,7 +287,7 @@ export default function StudentDashboard() {
                 const policyNumber = e.target.elements.policyNumber.value.trim();
                 if (!provider || !policyNumber) return alert('Please enter both Insurance Provider and Policy Number.');
                 try {
-                  const res = await fetch('http://localhost:5001/api/student/submit-insurance', {
+                  const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/student/submit-insurance`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ provider, policy_number: policyNumber })
@@ -344,7 +344,7 @@ export default function StudentDashboard() {
                 if (!signedName) return alert('Please enter your full name as signature.');
                 
                 try {
-                  const res = await fetch('http://localhost:5001/api/student/submit-undertaking', {
+                  const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/student/submit-undertaking`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ signedName, signedDate: new Date().toLocaleDateString() })

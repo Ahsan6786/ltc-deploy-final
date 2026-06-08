@@ -85,7 +85,7 @@ export default function LtcMemberDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/ltc/dashboard', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/ltc/dashboard`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.status === 401) {
@@ -120,7 +120,7 @@ export default function LtcMemberDashboard() {
     e.preventDefault()
     if (!feedbackText.trim()) return alert('Please enter feedback.')
     try {
-      const res = await fetch('http://localhost:5001/api/feedback', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({
@@ -151,7 +151,7 @@ export default function LtcMemberDashboard() {
         }
       } catch (e) {}
 
-      const res = await fetch(`http://localhost:5001/api/admin/user-by-barcode?barcode=${actualBarcode}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/user-by-barcode?barcode=${actualBarcode}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -596,7 +596,7 @@ export default function LtcMemberDashboard() {
                 <form onSubmit={async (e) => {
                   e.preventDefault();
                   try {
-                    const res = await fetch('http://localhost:5001/api/ltc/squad-leader', {
+                    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/ltc/squad-leader`, {
                       method: 'PUT',
                       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                       body: JSON.stringify({

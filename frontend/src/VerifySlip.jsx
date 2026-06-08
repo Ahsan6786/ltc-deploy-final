@@ -19,7 +19,8 @@ export default function VerifySlip() {
 
     const verifyBarcode = async () => {
       try {
-        const apiUrl = `http://${window.location.hostname}:5001/api/verify?barcode=${encodeURIComponent(barcode)}`;
+        const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+        const apiUrl = `${apiBase}/api/verify?barcode=${encodeURIComponent(barcode)}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         

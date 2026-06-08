@@ -32,7 +32,7 @@ export default function AdminDashboard() {
          }
       } catch(e) {}
       
-      const res = await fetch(`http://localhost:5001/api/admin/user-by-barcode?barcode=${actualBarcode}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/user-by-barcode?barcode=${actualBarcode}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       })
       const data = await res.json()
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
 
   const fetchSquadState = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/admin/squad-allocation-state', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/squad-allocation-state`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
     }
     setIsShuffling(true);
     try {
-      const res = await fetch('http://localhost:5001/api/admin/shuffle-squads', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/shuffle-squads`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -147,7 +147,7 @@ export default function AdminDashboard() {
     }
     try {
       const endpoint = squadData.locked ? 'unlock-squads' : 'lock-squads';
-      const res = await fetch(`http://localhost:5001/api/admin/${endpoint}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/${endpoint}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -232,7 +232,7 @@ export default function AdminDashboard() {
 
     setIsUploadingBatch(true);
     try {
-      const res = await fetch('http://localhost:5001/api/admin/set-current-batch', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/set-current-batch`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ identifiers, matchType })
@@ -285,7 +285,7 @@ export default function AdminDashboard() {
   const handleClearBatch = async () => {
     if (!window.confirm("Are you sure you want to clear all students from the current active LTC batch?")) return;
     try {
-      const res = await fetch('http://localhost:5001/api/admin/clear-current-batch', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/clear-current-batch`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -301,7 +301,7 @@ export default function AdminDashboard() {
 
   const handleToggleStudentBatch = async (userId, inBatch) => {
     try {
-      const res = await fetch('http://localhost:5001/api/admin/toggle-student-batch', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/toggle-student-batch`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ user_id: userId, in_batch: inBatch })
@@ -323,7 +323,7 @@ export default function AdminDashboard() {
     }
     
     try {
-      const res = await fetch('http://localhost:5001/api/admin/reset-database', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/reset-database`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -344,7 +344,7 @@ export default function AdminDashboard() {
     setSelectedUserForFeedback({ id: userId, name: userName })
     setIsFeedbackModalOpen(true)
     try {
-      const res = await fetch(`http://localhost:5001/api/admin/feedback?user_id=${userId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/feedback?user_id=${userId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -367,7 +367,7 @@ export default function AdminDashboard() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/admin/users', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/users`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.status === 401) {
@@ -388,7 +388,7 @@ export default function AdminDashboard() {
 
   const fetchDocuments = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/documents', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/documents`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.status === 401) {
@@ -458,7 +458,7 @@ export default function AdminDashboard() {
   const handleAddFaculty = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5001/api/admin/faculty', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/faculty`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(facultyForm)
@@ -480,7 +480,7 @@ export default function AdminDashboard() {
   const handleAutoAllocate = async () => {
     if (!window.confirm("This will randomly shuffle and assign ALL students to Squads (60 max) and Rooms (40 max, separated by gender). Proceed?")) return;
     try {
-      const res = await fetch('http://localhost:5001/api/admin/auto-allocate', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/auto-allocate`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -499,7 +499,7 @@ export default function AdminDashboard() {
   const handleAddStudent = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5001/api/users/student', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/users/student`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(studentForm)
@@ -521,7 +521,7 @@ export default function AdminDashboard() {
   const handleAddLtcMember = async (e) => {
     e.preventDefault()
     try {
-      const url = 'http://localhost:5001/api/admin/bulk-upload';
+      const url = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/bulk-upload`;
       const actualRes = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -544,7 +544,7 @@ export default function AdminDashboard() {
   const handleUploadDocument = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5001/api/documents', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/documents`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(docForm)
@@ -559,7 +559,7 @@ export default function AdminDashboard() {
 
   const handleUpdatePanel = async (userId, newPanel) => {
     try {
-      const res = await fetch('http://localhost:5001/api/admin/update-panel', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/update-panel`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ user_id: userId, panel: newPanel })
@@ -577,7 +577,7 @@ export default function AdminDashboard() {
 
   const handleUpdateDivision = async (userId, newDivision) => {
     try {
-      const res = await fetch('http://localhost:5001/api/admin/update-division', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/update-division`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ user_id: userId, division: newDivision })
@@ -591,7 +591,7 @@ export default function AdminDashboard() {
 
   const handleUpdateInsurance = async (userId, insuranceValue) => {
     try {
-      const res = await fetch('http://localhost:5001/api/admin/insurance', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/insurance`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ user_id: userId, insurance: insuranceValue === 'true' })
@@ -674,7 +674,7 @@ export default function AdminDashboard() {
 
     setIsUploading(true)
     try {
-      const res = await fetch('http://localhost:5001/api/admin/bulk-upload', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/bulk-upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ users: allUsersToUpload })
@@ -749,7 +749,7 @@ export default function AdminDashboard() {
     if (bulkInsuranceData.length === 0) return alert('No valid insurance data to upload.')
     setIsUploadingInsurance(true)
     try {
-      const res = await fetch('http://localhost:5001/api/admin/bulk-insurance', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/bulk-insurance`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ users: bulkInsuranceData })

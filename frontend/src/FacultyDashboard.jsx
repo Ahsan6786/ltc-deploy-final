@@ -151,7 +151,7 @@ export default function FacultyDashboard() {
     e.preventDefault()
     if (!feedbackText.trim()) return alert('Please enter feedback.')
     try {
-      const res = await fetch('http://localhost:5001/api/feedback', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({
@@ -214,7 +214,7 @@ export default function FacultyDashboard() {
   const fetchDashboardData = async () => {
     try {
       // Fetch assigned students
-      const res = await apiFetch('http://localhost:5001/api/faculty/dashboard')
+      const res = await apiFetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/dashboard`)
       if (!res) return
       if (res.ok) {
         const data = await res.json()
@@ -225,25 +225,25 @@ export default function FacultyDashboard() {
       }
 
       // Fetch Schedules
-      const schedRes = await apiFetch('http://localhost:5001/api/schedules')
+      const schedRes = await apiFetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/schedules`)
       if (!schedRes) return
       const schedData = await schedRes.json()
       if (schedRes.ok) setSchedules(schedData.schedules || [])
 
       // Fetch docs
-      const docRes = await apiFetch('http://localhost:5001/api/documents')
+      const docRes = await apiFetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/documents`)
       if (!docRes) return
       const docData = await docRes.json()
       if (docRes.ok) setDocuments(docData.documents || [])
 
       // Fetch attendance
-      const attRes = await apiFetch('http://localhost:5001/api/faculty/attendance_records')
+      const attRes = await apiFetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/attendance_records`)
       if (!attRes) return
       const attData = await attRes.json()
       if (attRes.ok) setAttendanceRecords(attData.records || [])
 
       // Fetch evaluations
-      const evalRes = await apiFetch('http://localhost:5001/api/faculty/evaluations')
+      const evalRes = await apiFetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/evaluations`)
       if (!evalRes) return
       const evalData = await evalRes.json()
       if (evalRes.ok) setAllEvaluations(evalData.evaluations || [])
@@ -256,7 +256,7 @@ export default function FacultyDashboard() {
   // Primary Actions
   const handleAssignPanel = async (student_id, panel) => {
     try {
-      const res = await fetch('http://localhost:5001/api/faculty/assign-panel', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/assign-panel`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ student_id, panel })
@@ -271,7 +271,7 @@ export default function FacultyDashboard() {
   const handleCreateSchedule = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5001/api/faculty/schedule', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/schedule`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(scheduleForm)
@@ -305,7 +305,7 @@ export default function FacultyDashboard() {
           title = `LTC - Day ${i - 2}`;
         }
 
-        await fetch('http://localhost:5001/api/faculty/schedule', {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/schedule`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({
@@ -328,7 +328,7 @@ export default function FacultyDashboard() {
 
   const handleMarkAttendance = async (student_id, schedule_id, status) => {
     try {
-      const res = await fetch('http://localhost:5001/api/faculty/attendance', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/attendance`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ schedule_id, student_id, status })
@@ -367,7 +367,7 @@ export default function FacultyDashboard() {
 
     for (const item of unmarked) {
       try {
-        await fetch('http://localhost:5001/api/faculty/attendance', {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/attendance`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ student_id: item.student_id, schedule_id: item.schedule_id, status: 'Present' })
@@ -379,7 +379,7 @@ export default function FacultyDashboard() {
 
   const handleToggleRedFlag = async (studentId) => {
     try {
-      const res = await fetch('http://localhost:5001/api/faculty/toggle-red-flag', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/toggle-red-flag`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ student_id: studentId })
@@ -404,7 +404,7 @@ export default function FacultyDashboard() {
     try {
       for (const studentId of studentIds) {
         const scheme = selectedMarkings[studentId];
-        await fetch('http://localhost:5001/api/faculty/evaluate', {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/evaluate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({
@@ -418,7 +418,7 @@ export default function FacultyDashboard() {
       }
 
       // Refresh evaluations
-      const res = await apiFetch('http://localhost:5001/api/faculty/evaluations');
+      const res = await apiFetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/faculty/evaluations`);
       if (res && res.ok) {
         const data = await res.json();
         setAllEvaluations(data.evaluations || []);
