@@ -407,9 +407,6 @@ export default function StudentDashboard() {
       }}>
         {/* Header */}
         <div className="sidebar-header">
-          {isMobile && (
-            <button className="sidebar-close-btn" onClick={() => setIsSidebarOpen(false)}>×</button>
-          )}
           <img src="/ltc.png" alt="LTC Logo" className="sidebar-logo" />
           <p className="sidebar-portal-label">Student Portal</p>
           <p className="sidebar-sub-label">{currentUser?.panel ? `Panel ${currentUser.panel}` : 'Student'}</p>

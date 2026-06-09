@@ -52,8 +52,7 @@ export default function Login() {
       <div className="login-minimal-card animate-fade-in" style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.08)' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <img src="/ltc.png" alt="LTC Logo" style={{ height: '60px', marginBottom: '16px' }} />
-          <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#0f172a', marginBottom: '4px', letterSpacing: '-0.5px' }}>Welcome Back</h1>
-          <p style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '1px' }}>LTC Management Portal</p>
+          <h1 style={{ fontSize: '23px', fontWeight: '800', color: '#0f172a', marginBottom: '4px', letterSpacing: '-0.5px' }}>Life Realization Program</h1>
         </div>
 
         {error && (

@@ -42,7 +42,7 @@ export default function TimetablePanel() {
       time: '09:00 AM - 06:00 PM',
       location: 'Delhi Innovation Hub & Corporate Office',
       description: 'Exclusive tour of high-tech manufacturing facility, followed by attendance at the Tech Leaders Summit.',
-      color: '#6366f1', // indigo
+      color: '#2563eb', // blue
       icon: Target
     },
     {
@@ -52,7 +52,7 @@ export default function TimetablePanel() {
       time: '09:30 AM - 05:30 PM',
       location: 'National Historical Monuments & Museum',
       description: 'Guided tour of historical architecture, research on national heritage, and evening cultural synthesis program.',
-      color: '#6366f1',
+      color: '#2563eb',
       icon: Shield
     },
     {
@@ -62,7 +62,7 @@ export default function TimetablePanel() {
       time: '10:00 AM - 04:00 PM',
       location: 'National Institute of Administration',
       description: 'Interactions with policy makers, seminars on public administration and socio-economic governance.',
-      color: '#6366f1',
+      color: '#2563eb',
       icon: BookOpen
     },
     {
@@ -72,7 +72,7 @@ export default function TimetablePanel() {
       time: '09:00 AM - 02:00 PM',
       location: 'Grand Seminar Hall',
       description: 'Squad-wise presentations of learnings, evaluation by external jury, and valedictory ceremony.',
-      color: '#6366f1',
+      color: '#2563eb',
       icon: Calendar
     }
   ]
@@ -88,7 +88,7 @@ export default function TimetablePanel() {
       {/* Header */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
         <h3 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Calendar size={24} style={{ color: '#6366f1' }} />
+          <Calendar size={24} style={{ color: '#2563eb' }} />
           Immersion Program Timetable
         </h3>
         <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
@@ -140,11 +140,11 @@ export default function TimetablePanel() {
             fontWeight: '700',
             borderRadius: '8px',
             cursor: 'pointer',
-            border: filter === 'national' ? 'none' : '1px solid #6366f1',
-            background: filter === 'national' ? '#6366f1' : '#ffffff',
-            color: filter === 'national' ? '#ffffff' : '#6366f1',
+            border: filter === 'national' ? 'none' : '1px solid #2563eb',
+            background: filter === 'national' ? '#2563eb' : '#ffffff',
+            color: filter === 'national' ? '#ffffff' : '#2563eb',
             transition: 'all 0.2s ease',
-            boxShadow: filter === 'national' ? '0 4px 12px rgba(99, 102, 241, 0.15)' : 'none'
+            boxShadow: filter === 'national' ? '0 4px 12px rgba(37, 99, 235, 0.15)' : 'none'
           }}
         >
           National Immersion (Days 4-7)
@@ -160,7 +160,7 @@ export default function TimetablePanel() {
               key={item.day}
               style={{
                 background: 'rgba(255, 255, 255, 0.8)',
-                border: `1px solid ${item.phase === 'Rural Immersion' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(99, 102, 241, 0.2)'}`,
+                border: `1px solid ${item.phase === 'Rural Immersion' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(37, 99, 235, 0.2)'}`,
                 borderRadius: '12px',
                 padding: '18px',
                 display: 'flex',
@@ -192,7 +192,7 @@ export default function TimetablePanel() {
                   textTransform: 'uppercase',
                   padding: '2px 8px',
                   borderRadius: '4px',
-                  background: item.phase === 'Rural Immersion' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(99, 102, 241, 0.1)',
+                  background: item.phase === 'Rural Immersion' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(37, 99, 235, 0.1)',
                   color: item.color
                 }}>
                   {item.phase}
@@ -201,7 +201,7 @@ export default function TimetablePanel() {
 
               {/* Title & Icon */}
               <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                <div style={{ background: item.phase === 'Rural Immersion' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(99, 102, 241, 0.1)', padding: '6px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ background: item.phase === 'Rural Immersion' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(37, 99, 235, 0.1)', padding: '6px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <IconComponent size={18} style={{ color: item.color }} />
                 </div>
                 <h4 style={{ fontSize: '15px', fontWeight: '800', color: '#1e293b', margin: 0, lineHeight: '1.3' }}>

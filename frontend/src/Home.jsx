@@ -23,7 +23,8 @@ export default function Home() {
         
         .premium-card {
           position: relative;
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform, box-shadow;
         }
         .premium-card:hover {
           transform: translateY(-10px);
@@ -44,8 +45,9 @@ export default function Home() {
           color: white !important;
         }
         .animated-pill {
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
+          will-change: transform, box-shadow;
         }
         .animated-pill:hover {
           transform: translateY(-5px) scale(1.02);
@@ -54,7 +56,19 @@ export default function Home() {
         .pill-orange:hover { box-shadow: 0 15px 30px rgba(217, 94, 58, 0.4); }
         .pill-blue:hover { box-shadow: 0 15px 30px rgba(52, 168, 243, 0.4); }
         .pill-yellow:hover { box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4); }
-        .pill-purple:hover { box-shadow: 0 15px 30px rgba(168, 85, 247, 0.4); }
+
+        /* Hardware accelerate background video for buttery smooth scrolling */
+        .hero-video {
+          will-change: transform;
+          transform: translate3d(0, 0, 0);
+          backface-visibility: hidden;
+        }
+
+        /* Performance scroll optimization (lazy-rendering of offscreen blocks) */
+        .scroll-opt {
+          content-visibility: auto;
+          contain-intrinsic-size: 1px 500px;
+        }
         
         @media (max-width: 768px) {
           .join-btn {
@@ -111,7 +125,7 @@ export default function Home() {
           boxSizing: 'border-box',
           zIndex: 10
         }}>
-          <p style={{ fontSize: '28px', fontWeight: '700', marginBottom: '15px', color: '#f59e0b', width: '100%', textAlign: 'center' }}>"मितं हितं"</p>
+          <p style={{ fontSize: '28px', fontWeight: '700', marginBottom: '15px', color: '#f59e0b', width: '100%', textAlign: 'center' }}>"आत्मानं विद्धि"</p>
           
           <div className="nowrap-desktop" style={{ 
             background: 'transparent', 
@@ -163,7 +177,7 @@ export default function Home() {
       </div>
 
       {/* Vision & Mission Section */}
-      <div style={{ backgroundColor: '#f8fafc', padding: isMobile ? '80px 20px' : '120px 20px', textAlign: 'center' }}>
+      <div className="scroll-opt" style={{ backgroundColor: '#f8fafc', padding: isMobile ? '80px 20px' : '120px 20px', textAlign: 'center' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
           
           {/* Vision Card */}
@@ -224,7 +238,7 @@ export default function Home() {
 
 
       {/* OUT OF THE WORLD CARDS SECTION */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto 80px', padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
+      <div className="scroll-opt" style={{ maxWidth: '1200px', margin: '0 auto 80px', padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
         
         {/* Card 1: INSPIRATION */}
         <div className="premium-card" style={{ 
@@ -328,7 +342,7 @@ export default function Home() {
 
         {/* Card 2: VISIONARY */}
         <div className="premium-card" style={{ 
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%)', /* Deep blue to purple-black */
+          background: 'linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)', /* Deep blue to slate-black */
           borderRadius: '24px', 
           border: '1px solid rgba(255, 255, 255, 0.05)',
           boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
@@ -478,7 +492,7 @@ export default function Home() {
       </div>
 
       {/* Video Section */}
-      <div style={{ background: '#f8fafc', padding: '140px 20px' }}>
+      <div className="scroll-opt" style={{ background: '#f8fafc', padding: '140px 20px' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           
           {/* Video Title */}
@@ -515,7 +529,7 @@ export default function Home() {
       </div>
 
       {/* Quote Section */}
-      <div style={{ background: 'white', padding: '140px 20px', textAlign: 'center' }}>
+      <div className="scroll-opt" style={{ background: 'white', padding: '140px 20px', textAlign: 'center' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
           {/* Pattern Accent */}
           <img src="/pattern2.png" alt="" style={{ position: 'absolute', top: '-40px', left: '0', height: '60px', opacity: 0.8 }} />
@@ -537,7 +551,7 @@ export default function Home() {
       </div>
 
       {/* Main Content Section (Soul to Soil) */}
-      <div style={{ 
+      <div className="scroll-opt" style={{ 
         background: 'white',
         padding: '160px 40px',
       }}>
@@ -608,8 +622,8 @@ export default function Home() {
                 <span>A deep sense of Patriotism and Nation-Building</span>
               </div>
 
-              {/* Purple Block */}
-              <div className="animated-pill pill-purple" style={{ background: '#a855f7', color: 'white', padding: '16px 20px', borderRadius: '12px', fontSize: '14px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '15px' }}>
+              {/* Blue Spirituality Block */}
+              <div className="animated-pill pill-blue" style={{ background: '#1d4ed8', color: 'white', padding: '16px 20px', borderRadius: '12px', fontSize: '14px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <span style={{ background: 'rgba(255,255,255,0.2)', padding: '8px', borderRadius: '50%', display: 'flex' }}><Sparkles size={18} /></span>
                 <span>And the calming depth of Spirituality and Inner Awareness</span>
               </div>
@@ -620,7 +634,7 @@ export default function Home() {
       </div>
 
       {/* Pop-out Quote Section (Prof. Dr. Vishwanath D. Karad) */}
-      <div style={{ position: 'relative', background: 'white', padding: '80px 0' }}>
+      <div className="scroll-opt" style={{ position: 'relative', background: 'white', padding: '80px 0' }}>
         
         {/* Orange Band */}
         <div style={{ 

@@ -1,6 +1,6 @@
 :root {
-  --primary: #7c3aed; /* Electric Purple/Violet */
-  --primary-hover: #6d28d9;
+  --primary: #2563eb; /* Royal Blue */
+  --primary-hover: #1d4ed8;
   --bg-light: #f8fafc;
   --bg-card: #ffffff;
   --text-main: #0f172a;
@@ -8,10 +8,10 @@
   --border: #f1f5f9; /* Ultra-soft gray */
   --danger: #f87171;
   --success: #34d399;
-  --secondary: #6366f1; /* Indigo */
-  --shadow-sm: 0 4px 10px -1px rgba(124, 58, 237, 0.02), 0 2px 4px -2px rgba(124, 58, 237, 0.02);
+  --secondary: #3b82f6; /* Light Blue */
+  --shadow-sm: 0 4px 10px -1px rgba(37, 99, 235, 0.02), 0 2px 4px -2px rgba(37, 99, 235, 0.02);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.02);
-  --shadow-lg: 0 20px 40px rgba(124, 58, 237, 0.04);
+  --shadow-lg: 0 20px 40px rgba(37, 99, 235, 0.04);
 }
 
 * {
@@ -486,7 +486,7 @@ select.input-field {
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #7c3aed; /* Violet Brand */
+  color: #2563eb; /* Blue Brand */
   margin: 0;
 }
 
@@ -507,23 +507,7 @@ select.input-field {
 }
 
 /* Decorative float plus button in sidebar mimicking the reference image */
-.sidebar-nav::after {
-  content: "+";
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: #7c3aed;
-  color: #ffffff;
-  border-radius: 50%;
-  font-size: 24px;
-  font-weight: 300;
-  margin: 24px auto 12px 12px;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-  transition: all 0.2s ease;
-  pointer-events: none;
-}
+
 
 /* Section label */
 .sidebar-section-label {
@@ -572,17 +556,17 @@ select.input-field {
 
 .sidebar-item:hover {
   background: #f8fafc;
-  color: #7c3aed;
+  color: #2563eb;
 }
 
 .sidebar-item:hover svg {
-  color: #7c3aed;
+  color: #2563eb;
 }
 
 .sidebar-item.active {
-  background: #7c3aed;
+  background: #2563eb;
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
 .sidebar-item.active svg {
@@ -639,7 +623,7 @@ select.input-field {
 }
 .sidebar .btn-outline:hover {
   background: #f8fafc;
-  color: #7c3aed;
+  color: #2563eb;
 }
 
 
@@ -788,7 +772,7 @@ select.input-field {
 }
 
 .data-table tr:hover {
-  background: rgba(124, 58, 237, 0.01);
+  background: rgba(37, 99, 235, 0.01);
 }
 
 .badge {
@@ -835,13 +819,13 @@ select.input-field {
 }
 
 .input-field:focus {
-  border-color: #7c3aed !important;
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1) !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
 }
 
 /* Premium Buttons */
 .btn {
-  background: #7c3aed !important; /* Premium violet color */
+  background: #2563eb !important; /* Premium blue color */
   color: white !important;
   border: none !important;
   padding: 12px 28px !important;
@@ -854,13 +838,13 @@ select.input-field {
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.2) !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2) !important;
 }
 
 .btn:hover {
-  background: #6d28d9 !important;
+  background: #1d4ed8 !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3) !important;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
 }
 
 .btn-outline {
@@ -878,21 +862,21 @@ select.input-field {
 
 /* Dashed Bulk Upload Overrides mimicking the Drag & Drop area in the reference image */
 div[style*="dashed"] {
-  border: 2px dashed rgba(124, 58, 237, 0.3) !important;
-  background: rgba(124, 58, 237, 0.02) !important;
+  border: 2px dashed rgba(37, 99, 235, 0.3) !important;
+  background: rgba(37, 99, 235, 0.02) !important;
   border-radius: 20px !important;
   padding: 48px 24px !important;
   transition: all 0.25s ease !important;
 }
 
 div[style*="dashed"]:hover {
-  border-color: #7c3aed !important;
-  background: rgba(124, 58, 237, 0.04) !important;
+  border-color: #2563eb !important;
+  background: rgba(37, 99, 235, 0.04) !important;
 }
 
 div[style*="dashed"] div[style*="background"] {
-  background: rgba(124, 58, 237, 0.1) !important;
-  color: #7c3aed !important;
+  background: rgba(37, 99, 235, 0.1) !important;
+  color: #2563eb !important;
 }
 
 @keyframes fadeIn {
@@ -1064,4 +1048,24 @@ div[style*="dashed"] div[style*="background"] {
 .premium-footer img {
   filter: grayscale(100%);
   opacity: 0.7;
+}
+
+/* Mobile responsive form input fixes (prevent zoom on iOS Safari) */
+@media (max-width: 768px) {
+  .input-field {
+    font-size: 16px !important;
+  }
+}
+
+/* Make tables scrollable on mobile screen resolutions without breaking structure */
+@media (max-width: 768px) {
+  .data-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 24px;
+  }
 }

@@ -785,9 +785,6 @@ export default function AdminDashboard() {
       }}>
         {/* Header */}
         <div className="sidebar-header">
-          {isMobile && (
-            <button className="sidebar-close-btn" onClick={() => setIsSidebarOpen(false)}>×</button>
-          )}
           <img src="/ltc.png" alt="LTC Logo" className="sidebar-logo" />
           <p className="sidebar-portal-label">Admin Portal</p>
           <p className="sidebar-sub-label">{currentUser?.name || 'Administrator'}</p>
