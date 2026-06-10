@@ -45,6 +45,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Bypass service worker caching for development server requests and Vite assets
+  if (
+    url.hostname === 'localhost' ||
+    url.hostname === '127.0.0.1' ||
+    url.pathname.includes('/@vite/') ||
+    url.pathname.includes('/@id/') ||
+    url.pathname.includes('/node_modules/') ||
+    url.pathname.includes('/@react-refresh')
+  ) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
